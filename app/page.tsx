@@ -43,11 +43,18 @@ export default function Home() {
       console.log('Slide change received:', data.action);
       
       if (data.action === 'next') {
-        handleNext();
+        // If video is playing, skip it instead of queueing
+        if (isTransitioning && transitionType !== 'none') {
+          skipVideo();
+        } else {
+          handleNext();
+        }
       } else if (data.action === 'prev') {
         handlePrev();
       } else if (data.action === 'reset') {
         handleReset();
+      } else if (data.action === 'skip') {
+        skipVideo();
       }
     };
 

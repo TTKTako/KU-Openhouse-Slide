@@ -131,7 +131,7 @@ export default function Remote() {
 
           <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <p className="text-xs text-gray-600 text-center">
-              Use this remote to control the display screen
+              Website by @TTKTako (TarKubz) for Open House 2025
             </p>
           </div>
         </div>
