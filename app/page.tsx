@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { io, Socket } from 'socket.io-client';
+import { getPusherClient } from '@/lib/pusher';
+import type PusherClient from 'pusher-js';
 
 type TransitionState = 'none' | 'idle-to-first' | 'last-to-idle';
 
@@ -11,7 +12,7 @@ export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionType, setTransitionType] = useState<TransitionState>('none');
   const [slides, setSlides] = useState<any[]>([]);
-  const socketRef = useRef<Socket | null>(null);
+  const pusherRef = useRef<PusherClient | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [nextSlideQueued, setNextSlideQueued] = useState<number | null>(null);
 
@@ -22,25 +23,21 @@ export default function Home() {
       .then((data) => setSlides(data))
       .catch((err) => console.error('Error loading slides:', err));
 
-    // Initialize socket connection
-    socketRef.current = io({
-      path: '/api/socket',
-      addTrailingSlash: false,
-    });
+    // Initialize Pusher connection
+    pusherRef.current = getPusherClient();
+    const channel = pusherRef.current.subscribe('slides-channel');
 
-    socketRef.current.on('connect', () => {
-      console.log('Connected to socket server');
-      // Join the display room to receive commands
-      socketRef.current?.emit('join-room', { room: 'displays' });
-    });
+    console.log('Connected to Pusher');
 
     return () => {
-      socketRef.current?.disconnect();
+      channel.unsubscribe();
     };
   }, []);
 
   useEffect(() => {
-    if (!socketRef.current) return;
+    if (!pusherRef.current) return;
+
+    const channel = pusherRef.current.subscribe('slides-channel');
 
     const handleSlideChange = (data: { action: string }) => {
       console.log('Slide change received:', data.action);
@@ -54,10 +51,10 @@ export default function Home() {
       }
     };
 
-    socketRef.current.on('slide-change', handleSlideChange);
+    channel.bind('slide-change', handleSlideChange);
 
     return () => {
-      socketRef.current?.off('slide-change', handleSlideChange);
+      channel.unbind('slide-change', handleSlideChange);
     };
   }, [slides, currentSlide, isTransitioning, transitionType, nextSlideQueued]);
 

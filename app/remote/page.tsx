@@ -1,52 +1,34 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { triggerSlideChange } from '@/lib/pusher';
 
 export default function Remote() {
-  const socketRef = useRef<Socket | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
   const [displayCount, setDisplayCount] = useState(0);
 
-  useEffect(() => {
-    // Initialize socket connection
-    socketRef.current = io({
-      path: '/api/socket',
-      addTrailingSlash: false,
-    });
-
-    socketRef.current.on('connect', () => {
-      console.log('Remote connected to socket server');
-      setIsConnected(true);
-      // Request display count update
-      socketRef.current?.emit('get-display-count');
-    });
-
-    socketRef.current.on('disconnect', () => {
-      console.log('Remote disconnected from socket server');
-      setIsConnected(false);
-      setDisplayCount(0);
-    });
-
-    socketRef.current.on('display-count', (count: number) => {
-      setDisplayCount(count);
-    });
-
-    return () => {
-      socketRef.current?.disconnect();
-    };
-  }, []);
-
-  const handleReset = () => {
-    socketRef.current?.emit('reset');
+  const handleReset = async () => {
+    try {
+      await triggerSlideChange('reset');
+    } catch (error) {
+      console.error('Failed to send reset command:', error);
+    }
   };
 
-  const handleNext = () => {
-    socketRef.current?.emit('next-slide');
+  const handleNext = async () => {
+    try {
+      await triggerSlideChange('next');
+    } catch (error) {
+      console.error('Failed to send next command:', error);
+    }
   };
 
-  const handlePrev = () => {
-    socketRef.current?.emit('prev-slide');
+  const handlePrev = async () => {
+    try {
+      await triggerSlideChange('prev');
+    } catch (error) {
+      console.error('Failed to send prev command:', error);
+    }
   };
 
   return (
