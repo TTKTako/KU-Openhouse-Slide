@@ -53,5 +53,10 @@
         "id": 10,
         "title": "SKE Year 2 Term 2",
         "image": "/syl/8.png"
+    },
+    {
+        "id": 11,
+        "title": "QnA Session",
+        "subtitle": "ได้ยินเสียงอะไรไหม? ถึงเวลาไปออกล่าสมบัติแล้ว!"
     }
 ]

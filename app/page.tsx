@@ -162,7 +162,7 @@ export default function Home() {
         <div className="absolute bottom-8 right-8 z-20">
           <button
             onClick={skipVideo}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg border border-white/40"
+            className="hidden bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg border border-white/40"
           >
             Skip →
           </button>
