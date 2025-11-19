@@ -1,41 +1,56 @@
 [
     {
+        "id": 0,
+        "title": "หลักสูตรภาควิชาวิศวกรรมคอมพิวเตอร์",
+        "subtitle": "ภาคปกติ และ ภาคนานาชาติ"
+    },
+    {
         "id": 1,
+        "title": "หลักสูตรปี 1",
+        "subtitle": "ภาคปกติ และ ภาคนานาชาติ"
+    },
+    {
+        "id": 2,
         "title": "CPE Year 1 Term 1",
         "image": "/syl/1.png"
     },
     {
-        "id": 2,
+        "id": 3,
         "title": "CPE Year 1 Term 2",
         "image": "/syl/2.png"
     },
     {
-        "id": 3,
+        "id": 4,
         "title": "SKE Year 1 Term 1",
         "image": "/syl/3.png"
     },
     {
-        "id": 4,
+        "id": 5,
         "title": "SKE Year 1 Term 2",
         "image": "/syl/4.png"
     },
     {
-        "id": 5,
+        "id": 6,
+        "title": "หลักสูตรปี 2",
+        "subtitle": "ภาคปกติ และ ภาคนานาชาติ"
+    },
+    {
+        "id": 7,
         "title": "CPE Year 2 Term 1",
         "image": "/syl/5.png"
     },
     {
-        "id": 6,
+        "id": 8,
         "title": "CPE Year 2 Term 2",
         "image": "/syl/6.png"
     },
     {
-        "id": 7,
+        "id": 9,
         "title": "SKE Year 2 Term 1",
         "image": "/syl/7.png"
     },
     {
-        "id": 8,
+        "id": 10,
         "title": "SKE Year 2 Term 2",
         "image": "/syl/8.png"
     }

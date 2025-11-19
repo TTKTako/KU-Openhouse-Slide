@@ -297,15 +297,30 @@ export default function Home() {
       
       <div className="relative z-10 w-full h-full flex items-center justify-center p-16">
         {slides[currentSlide] && (
-          <div className="relative w-full h-full max-w-7xl">
-            <Image
-              src={slides[currentSlide].image}
-              alt={slides[currentSlide].title}
-              fill
-              className="object-contain drop-shadow-2xl"
-              priority
-            />
-          </div>
+          <>
+            {slides[currentSlide].image ? (
+              <div className="relative w-full h-full max-w-7xl">
+                <Image
+                  src={slides[currentSlide].image}
+                  alt={slides[currentSlide].title}
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center gap-8 text-center">
+                <h1 className="text-8xl font-bold text-white drop-shadow-2xl animate-fade-in">
+                  {slides[currentSlide].title}
+                </h1>
+                {slides[currentSlide].subtitle && (
+                  <p className="text-5xl text-amber-200 font-semibold drop-shadow-lg animate-fade-in">
+                    {slides[currentSlide].subtitle}
+                  </p>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
       
